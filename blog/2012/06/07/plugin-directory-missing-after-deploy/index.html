@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Deploying Rails</title>
+  <title>Plugin directory missing after deploy - Deploying Rails</title>
   <meta name="author" content="Tom Copeland & Tony Burns">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://deployingrails.com/">
+  <link rel="canonical" href="http://deployingrails.com/blog/2012/06/07/plugin-directory-missing-after-deploy/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -62,15 +62,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/06/07/plugin-directory-missing-after-deploy/">Plugin Directory Missing After Deploy</a></h1>
+      <h1 class="entry-title">Plugin Directory Missing After Deploy</h1>
     
     
       <p class="meta">
@@ -93,7 +90,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Last week I was working on bringing a sadly neglected Rails application up to date. Among other issues it was stored in a Subversion repository. I didn&#8217;t care very much about the history (so much for all my carefully worded commit messages), so I just exported the the trunk, copied the exported files into another directory, created a new local Git repo, added everything, and pushed it to a remote repo for a backup. Then I modified the <code>config/deploy.rb</code> to reflect Git, and deployed to production (no staging environment since it&#8217;s a personal project).</p>
+<div class="entry-content"><p>Last week I was working on bringing a sadly neglected Rails application up to date. Among other issues it was stored in a Subversion repository. I didn&#8217;t care very much about the history (so much for all my carefully worded commit messages), so I just exported the the trunk, copied the exported files into another directory, created a new local Git repo, added everything, and pushed it to a remote repo for a backup. Then I modified the <code>config/deploy.rb</code> to reflect Git, and deployed to production (no staging environment since it&#8217;s a personal project).</p>
 
 <p>I checked the site, and oh no, there was an error - something about class method &#8220;acts_as_list&#8221; not found. Wha? What I should have done at this point was a quick <code>cap deploy:rollback</code>, but instead I ssh&#8217;d in and started poking around. This was an old app, so <code>acts_as_list</code> was in <code>vendor/plugins</code> rather than using the gem. I checked <code>vendor/plugins/acts_as_list</code> and it was empty! A quick <code>cap deploy:upload deploy:restart FILES=vendor</code> got the site back up, but why was that directory not getting deployed?</p>
 
@@ -110,18 +107,57 @@
 
 <p>That&#8217;s because the gem name doesn&#8217;t match the top level file.</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Tom</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2012-06-07T15:56:00-04:00" pubdate data-updated="true">Jun 7<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://deployingrails.com/blog/2012/06/07/plugin-directory-missing-after-deploy/" data-via="deployingrails" data-counturl="http://deployingrails.com/blog/2012/06/07/plugin-directory-missing-after-deploy/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -142,7 +178,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/deployingrails">@deployingrails</a> on GitHub
@@ -172,7 +208,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -191,6 +227,7 @@
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -205,7 +242,10 @@
       var disqus_shortname = 'deployingrails';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://deployingrails.com/blog/2012/06/07/plugin-directory-missing-after-deploy/';
+        var disqus_url = 'http://deployingrails.com/blog/2012/06/07/plugin-directory-missing-after-deploy/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

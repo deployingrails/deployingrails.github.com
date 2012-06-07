@@ -4,7 +4,7 @@
   <title><![CDATA[Deploying Rails]]></title>
   <link href="http://deployingrails.com/atom.xml" rel="self"/>
   <link href="http://deployingrails.com/"/>
-  <updated>2012-06-07T15:50:30-04:00</updated>
+  <updated>2012-06-07T16:00:32-04:00</updated>
   <id>http://deployingrails.com/</id>
   <author>
     <name><![CDATA[Tom Copeland & Tony Burns]]></name>
@@ -12,5 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Plugin directory missing after deploy]]></title>
+    <link href="http://deployingrails.com/blog/2012/06/07/plugin-directory-missing-after-deploy/"/>
+    <updated>2012-06-07T15:56:00-04:00</updated>
+    <id>http://deployingrails.com/blog/2012/06/07/plugin-directory-missing-after-deploy</id>
+    <content type="html"><![CDATA[<p>Last week I was working on bringing a sadly neglected Rails application up to date. Among other issues it was stored in a Subversion repository. I didn&#8217;t care very much about the history (so much for all my carefully worded commit messages), so I just exported the the trunk, copied the exported files into another directory, created a new local Git repo, added everything, and pushed it to a remote repo for a backup. Then I modified the <code>config/deploy.rb</code> to reflect Git, and deployed to production (no staging environment since it&#8217;s a personal project).</p>
+
+<p>I checked the site, and oh no, there was an error - something about class method &#8220;acts_as_list&#8221; not found. Wha? What I should have done at this point was a quick <code>cap deploy:rollback</code>, but instead I ssh&#8217;d in and started poking around. This was an old app, so <code>acts_as_list</code> was in <code>vendor/plugins</code> rather than using the gem. I checked <code>vendor/plugins/acts_as_list</code> and it was empty! A quick <code>cap deploy:upload deploy:restart FILES=vendor</code> got the site back up, but why was that directory not getting deployed?</p>
+
+<p>Like all these things, it was simple once I figured out the problem. When I had added that plugin in Subversion I had cloned a Git repo and not removed the <code>.git</code> directory before committing the code. Thus when I exported the Subversion repo, the <code>.git</code> directory came along too. When I did my <code>git add .</code> to add all the code to the new Git repo, it didn&#8217;t add that subdirectory because there was already a repo there. Everything worked fine locally, but that directory wasn&#8217;t getting pushed to the remote Git repository and thus wasn&#8217;t included when Capistrano checked out the code. Looking back on it, another way to troubleshoot this would have been to clone the repo from the remote; then I would have seen that the <code>vendor/plugins/acts_as_list</code> directory was empty.</p>
+
+<p>I guess the takeaways are 1) having a staging deploy and use it 2) when you add something to Subversion, don&#8217;t include the <code>.git</code> directory and 3) use <code>cap deploy:rollback</code> when a deploy goes wrong.</p>
+
+<p>Oh, also - if you&#8217;re using acts_as_list-rails3, you need a specific require in your Gemfile, i.e.:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;acts_as_list-rails3&#39;</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="s1">&#39;acts_as_list&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&#8217;s because the gem name doesn&#8217;t match the top level file.</p>
+]]></content>
+  </entry>
   
 </feed>
