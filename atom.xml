@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Deploying Rails]]></title>
+  <link href="http://deployingrails.com/atom.xml" rel="self"/>
+  <link href="http://deployingrails.com/"/>
+  <updated>2012-06-07T15:50:30-04:00</updated>
+  <id>http://deployingrails.com/</id>
+  <author>
+    <name><![CDATA[Tom Copeland & Tony Burns]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>
