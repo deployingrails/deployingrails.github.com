@@ -34,3 +34,14 @@ THE SOFTWARE IS PROVIDED ‘AS IS’, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 #### If you want to be awesome.
 - Proudly display the 'Powered by Octopress' credit in the footer.
 - Add your site to the Wiki so we can watch the community grow.
+
+so the repo in the org called deployingrails.github.com
+clone that and make sure you're always checked out in the 'source' branch
+bundle install
+and then just
+rake new_post["Post title"]
+and while you're writing it
+you can run `rake preview` in another terminal and it'll keep updating on localhost:4000 whenever you save
+looks like the dns hasn't propogated yet
+
+ots of cool stuff we can do with octopress http://octopress.org/docs/
