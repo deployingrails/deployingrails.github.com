@@ -4,7 +4,7 @@
   <title><![CDATA[Deploying Rails]]></title>
   <link href="http://deployingrails.com/atom.xml" rel="self"/>
   <link href="http://deployingrails.com/"/>
-  <updated>2012-06-07T16:00:32-04:00</updated>
+  <updated>2012-06-07T16:04:25-04:00</updated>
   <id>http://deployingrails.com/</id>
   <author>
     <name><![CDATA[Tom Copeland & Tony Burns]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Plugin directory missing after deploy]]></title>
-    <link href="http://deployingrails.com/blog/2012/06/07/plugin-directory-missing-after-deploy/"/>
-    <updated>2012-06-07T15:56:00-04:00</updated>
-    <id>http://deployingrails.com/blog/2012/06/07/plugin-directory-missing-after-deploy</id>
+    <link href="http://deployingrails.com/blog/2012/05/18/plugin-directory-missing-after-deploy/"/>
+    <updated>2012-05-18T15:56:00-04:00</updated>
+    <id>http://deployingrails.com/blog/2012/05/18/plugin-directory-missing-after-deploy</id>
     <content type="html"><![CDATA[<p>Last week I was working on bringing a sadly neglected Rails application up to date. Among other issues it was stored in a Subversion repository. I didn&#8217;t care very much about the history (so much for all my carefully worded commit messages), so I just exported the the trunk, copied the exported files into another directory, created a new local Git repo, added everything, and pushed it to a remote repo for a backup. Then I modified the <code>config/deploy.rb</code> to reflect Git, and deployed to production (no staging environment since it&#8217;s a personal project).</p>
 
 <p>I checked the site, and oh no, there was an error - something about class method &#8220;acts_as_list&#8221; not found. Wha? What I should have done at this point was a quick <code>cap deploy:rollback</code>, but instead I ssh&#8217;d in and started poking around. This was an old app, so <code>acts_as_list</code> was in <code>vendor/plugins</code> rather than using the gem. I checked <code>vendor/plugins/acts_as_list</code> and it was empty! A quick <code>cap deploy:upload deploy:restart FILES=vendor</code> got the site back up, but why was that directory not getting deployed?</p>
